@@ -22,6 +22,26 @@ def is_invalid(n: int) -> bool:
     half = len(s) // 2
     return s[:half] == s[half:]
 
+def is_invalid02(n: int) -> bool:
+    s = str(n)
+    L = len(s)
+
+    for d in range(1, L // 2 + 1):
+        if L % d != 0:
+            continue
+        block = s[:d]
+        if block * (L // d) == s:
+            return False
+    return True
+
+def sum_invalid_bruteforce_pairs_02(pairs) -> int:
+    total = 0
+    for a, b in pairs:
+        for n in range(a, b + 1):
+            if not is_invalid02(n):
+                total += n
+    return total
+
 def sum_invalid_bruteforce_pairs(pairs) -> int:
     total = 0
     for a, b in pairs:
@@ -34,5 +54,5 @@ def sum_invalid_bruteforce_pairs(pairs) -> int:
 if __name__ == "__main__":
     print(load_ranges("Day02-Input.txt"))
     ranges = load_ranges("Day02-Input.txt")
-    total = sum_invalid_bruteforce_pairs(ranges)
+    total = sum_invalid_bruteforce_pairs_02(ranges)
     print(total)
